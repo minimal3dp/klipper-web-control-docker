@@ -27,7 +27,8 @@ services:
       # mount serial device - take care to grant sufficient permissions to the device: <host_dev>:<container_dev>
       # put <container_dev> into your printer.cfg
       #devices:
-        #- /dev/ttyUSB0:/dev/ttyUSB0
+        #- /dev/ttyUSB0:/dev/ttyUSB
+      command: bash -c "ln -s /home/klippy/.config /home/klippy/printer_data/config"
 
   ##################################################################
   # Example config for a second printer on a different serial port
