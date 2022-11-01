@@ -21,7 +21,7 @@ services:
         - gcode_files:/home/klippy/gcode_files
         # be aware to create your own branch if you mount the config folder as it will be updated on the main branch
         # that way you can merge upstream changes to your customized configs
-        - ./config:/home/klippy/klipper_config
+        - ./config:/home/klippy/printer_data/config
         - moonraker_data:/home/klippy/.moonraker_database
         # - <<your_config_path>>:/home/klippy/.config
         # - ./printer.cfg:/home/klippy/.config/printer.cfg

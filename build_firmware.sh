@@ -9,7 +9,7 @@ CONFIG_PATH=${BUILD_DIR}/${CONFIG_NAME}
 touch ${CONFIG_PATH}
 OUT_DIR=${BUILD_DIR}/klipper_build_${TARGET}
 mkdir -p ${BUILD_DIR}
-CONTAINER=$(docker run -d -v ${CONFIG_PATH}:/home/klippy/klipper/klipper_config -v ${BUILD_DIR}:/home/klippy/klipper/out klipper-builder sleep infinity)
+CONTAINER=$(docker run -d -v ${CONFIG_PATH}:/home/klippy/klipper/printer_data/config -v ${BUILD_DIR}:/home/klippy/klipper/out klipper-builder sleep infinity)
 docker exec -it ${CONTAINER} make menuconfig
 docker exec ${CONTAINER} make
 #docker exec ${CONTAINER} make flash

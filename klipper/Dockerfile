@@ -55,7 +55,7 @@ RUN ${KLIPPER_VENV_DIR}/bin/pip install wheel && \
 RUN ${KLIPPER_VENV_DIR}/bin/python klippy/chelper/__init__.py
 RUN ${KLIPPER_VENV_DIR}/bin/python -m compileall klippy
 
-COPY klipper/.config_linux_mcu ./klipper_config
+COPY klipper/.config_linux_mcu ${HOME}/printer_data/config
 RUN make
 
 WORKDIR ${HOME}
@@ -102,7 +102,7 @@ ENV LANGUAGE en_GB:en
 
 ARG USER=klippy
 ARG HOME=/home/${USER}
-ENV CONFIG_DIR=${HOME}/klipper_config
+ENV CONFIG_DIR=${HOME}/printer_data/config
 ENV KLIPPER_VENV_DIR=${HOME}/klippy-env
 ENV MOONRAKER_VENV_DIR=${HOME}/moonraker-env
 
