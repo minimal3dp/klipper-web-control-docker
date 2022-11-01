@@ -55,7 +55,7 @@ RUN ${KLIPPER_VENV_DIR}/bin/pip install wheel && \
 RUN ${KLIPPER_VENV_DIR}/bin/python klippy/chelper/__init__.py
 RUN ${KLIPPER_VENV_DIR}/bin/python -m compileall klippy
 
-COPY klipper/.config_linux_mcu ./.config
+COPY klipper/.config_linux_mcu ./printer_data/config
 RUN make
 
 WORKDIR ${HOME}
