@@ -92,7 +92,6 @@ services:
       links:
         - klipper:klipper
         # - klipper_another_printer:klipper_another_printer
-      command: bash -c "ln -s /home/klippy/.config /home/klippy/printer_data/config"
 
 volumes: 
   my_data:
