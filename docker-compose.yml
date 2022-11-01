@@ -29,7 +29,7 @@ services:
       # mount serial device - take care to grant sufficient permissions to the device: <host_dev>:<container_dev>
       # put <container_dev> into your printer.cfg
       devices:
-        - /dev/ttyUSB0:/dev/ttyUSB
+        - /dev/ttyACM0:/dev/ttyACM0
 
   ##################################################################
   # Example config for a second printer on a different serial port
