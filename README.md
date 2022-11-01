@@ -1,3 +1,28 @@
+# Combined Octoprint, Mainsail, and Fluidd
+
+## Docker Commands
+
+__Command List:__
+
+- `docker container ls` - list containers
+- `docker stop <Container_ID>` - stop a container
+- `docker rm <Container_ID>` - remove a stopped container
+- `docker rm -f <Container_ID>` - force stop and remove a container
+- `docker rmi -f <Image_name>` - remove an image
+- `docker-compose up -d` - run the compose file
+- `docker volume ls` - list volumes
+- `docker volume rm [OPTIONS] VOLUME [VOLUME...]` - remove a volume
+
+__Danger Commands:__
+
+- `docker kill $(docker ps -q)` - stop all containers
+- `docker rm $(docker ps -a -q)` - remove all containers
+- `docker rmi $(docker images -q)` - delete all images
+
+
+`docker exec -d klipper ln -s /home/klippy/.config /home/klippy/printer_data/config`
+
+
 ![Mainsail Multiarch Image CI](https://github.com/dimalo/klipper-web-control-docker/workflows/Mainsail%20Multiarch%20Image%20CI/badge.svg)
 ![Klipper Moonraker Multiarch Image CI](https://github.com/dimalo/klipper-web-control-docker/workflows/Klipper%20Moonraker%20Multiarch%20Image%20CI/badge.svg)
 

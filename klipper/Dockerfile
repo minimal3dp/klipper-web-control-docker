@@ -131,7 +131,7 @@ RUN pip install --no-index -f ${WHEELS} supervisord-dependent-startup gpiod nump
 USER ${USER}
 WORKDIR ${HOME}
 
-RUN mkdir -p ${HOME}/gcode_files ${CONFIG_DIR} ${HOME}/.moonraker ${HOME}/.moonraker_database ${HOME}/.klipper_repo_backup ${HOME}/.moonraker_repo_backup ${HOME}/printer_data/config
+RUN mkdir -p ${HOME}/gcode_files ${CONFIG_DIR} ${HOME}/.moonraker ${HOME}/.moonraker_database ${HOME}/.klipper_repo_backup ${HOME}/.moonraker_repo_backup
 
 VOLUME ${HOME}/gcode_files
 VOLUME ${CONFIG_DIR}
@@ -151,5 +151,4 @@ COPY --chown=${USER}:${USER} klipper/run_in_venv /usr/local/bin/run_in_venv
 
 COPY klipper/supervisord.conf /etc/supervisord/conf.d/supervisord.conf
 COPY klipper/*.ini /etc/supervisord/
-RUN ln -s ${CONFIG_DIR} ${HOME}/printer_data/config
 CMD ["supervisord", "-c", "/etc/supervisord/conf.d/supervisord.conf"]
