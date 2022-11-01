@@ -59,21 +59,20 @@ services:
   #   devices:
   #     - /dev/ttyACM0:/dev/ttyACM0
 
-
-  fluidd:
-    image: dimalo/fluidd
-    # build:
-    #   dockerfile: Dockerfile
-    #   context: frontend
-    container_name: fluidd
-    ports:
-      - 8010:80
-    depends_on: 
-      - klipper
-      # - klipper_another_printer
-    links:
-      - klipper:klipper
-      # - klipper_another_printer:klipper_another_printer
+    fluidd:
+      image: dimalo/fluidd
+      # build:
+      #   dockerfile: Dockerfile
+      #   context: frontend
+      container_name: fluidd
+      ports:
+        - 8010:80
+      depends_on: 
+        - klipper
+        # - klipper_another_printer
+      links:
+        - klipper:klipper
+        # - klipper_another_printer:klipper_another_printer
 
     mainsail:
       image: dimalo/mainsail
