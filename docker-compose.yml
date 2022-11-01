@@ -17,6 +17,7 @@ services:
         - 7125:7125
       restart: unless-stopped
       volumes:
+        - printer_data:/home/klippy
         - gcode_files:/home/klippy/gcode_files
         # be aware to create your own branch if you mount the config folder as it will be updated on the main branch
         # that way you can merge upstream changes to your customized configs
@@ -93,6 +94,7 @@ services:
         # - klipper_another_printer:klipper_another_printer
 
 volumes: 
+  printer_data:
   gcode_files:
   moonraker_data:
 
