@@ -18,6 +18,7 @@ __Danger Commands:__
 - `docker kill $(docker ps -q)` - stop all containers
 - `docker rm $(docker ps -a -q)` - remove all containers
 - `docker rmi $(docker images -q)` - delete all images
+- `docker volume rm $(docker volume ls -q)` - delete all volumes
 
 
 `docker exec -d klipper ln -s /home/klippy/.config /home/klippy/printer_data/config`
