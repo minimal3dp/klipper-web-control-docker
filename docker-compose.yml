@@ -102,7 +102,7 @@ services:
         - 5000:5000
         - 8080:8080
       volumes:
-        - /home/dietpi/docker/octoprint1:/octoprint1
+        - ./octoprint1:/octoprint1
       environment:
         - ENABLE_MJPG_STREAMER=true
         - MJPG_STREAMER_INPUT=-n -d /dev/video0:/dev/video0 -r 1280x720 -f 30
