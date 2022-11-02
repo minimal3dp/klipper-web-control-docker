@@ -1,0 +1,119 @@
+version: '2'
+
+services:
+    klipper:
+      image: dimalo/klipper-moonraker
+      build:
+        dockerfile: ./klipper/Dockerfile
+        context: .
+      # if klipper cannot connect to the printer check permissions on rpi then add the group here
+      # group_add:
+      #   - "996"
+      #   - "998"
+      cap_add:
+        - SYS_NICE
+      container_name: klipper
+      ports:
+        - 7125:7125
+      restart: unless-stopped
+      volumes:
+        #- my_data:/home/klippy
+        - gcode_files:/home/klippy/gcode_files
+        # be aware to create your own branch if you mount the config folder as it will be updated on the main branch
+        # that way you can merge upstream changes to your customized configs
+        #- ./config:/home/klippy/.config
+        - ./e5p_config:/home/klippy/printer_data/config
+        - moonraker_data:/home/klippy/.moonraker_database
+        # - <<your_config_path>>:/home/klippy/.config
+        # - ./printer.cfg:/home/klippy/.config/printer.cfg
+      # mount serial device - take care to grant sufficient permissions to the device: <host_dev>:<container_dev>
+      # put <container_dev> into your printer.cfg
+      devices:
+        - /dev/ender5plus:/dev/ttyACM0
+
+  ##################################################################
+  # Example config for a second printer on a different serial port
+  ##################################################################
+
+  # klipper_another_printer:
+  #   image: dimalo/klipper-moonraker
+  #   build:
+  #     dockerfile: ./klipper/Dockerfile
+  #     context: .
+  #     # args:
+  #     #   DEVICE_GROUP: device
+  #     #   DEVICE_GID: 987
+  #   container_name: klipper_another_printer
+  #   ports:
+  #     # As 7125 is already used by the first printer, we map this moonraker's port to 7126 on the host
+  #     - 7126:7125
+  #   restart: unless-stopped
+  #   volumes:
+  #     # Let both klipper instances use the same storage for gcode files
+  #     - gcode_files:/home/klippy/gcode_files
+  #     # be aware to create your own branch if you mount the config folder as it will be updated on the main branch
+  #     # that way you can merge upstream changes to your (developed) configs...
+  #     - ./config_another_printer:/home/klippy/.config
+  #     # - <<your_config_path>>:/home/klippy/.config
+  #     # - ./another_printer.cfg:/home/klippy/.config/printer.cfg
+  #   # mount serial device - take care to grant sufficient permissions to the device: <host_dev>:<container_dev>
+  #   # put <container_dev> into your printer.cfg
+  #   devices:
+  #     - /dev/ttyACM0:/dev/ttyACM0
+
+    fluidd:
+      image: dimalo/fluidd
+      # build:
+      #   dockerfile: Dockerfile
+      #   context: frontend
+      container_name: fluidd
+      ports:
+        - 8010:80
+      depends_on: 
+        - klipper
+        # - klipper_another_printer
+      links:
+        - klipper:klipper
+        # - klipper_another_printer:klipper_another_printer
+
+    mainsail:
+      image: dimalo/mainsail
+      build:
+        dockerfile: Dockerfile
+        context: frontend
+        args:
+          FRONTEND_ZIP_URL: https://github.com/meteyou/mainsail/releases/latest/download/mainsail.zip
+      container_name: mainsail
+      ports:
+        - 8011:80
+      depends_on: 
+        - klipper
+        # - klipper_another_printer
+      links:
+        - klipper:klipper
+        # - klipper_another_printer:klipper_another_printer
+
+    octoprint1:
+      container_name: Octoprint1
+      image: octoprint/octoprint
+      hostname: Octoprint1
+      restart: unless-stopped
+      ports:
+        - 5000:5000
+        - 8080:8080
+      volumes:
+        - ./octoprint1:/octoprint1
+      environment:
+        - ENABLE_MJPG_STREAMER=true
+        - MJPG_STREAMER_INPUT=-n -d /dev/video0:/dev/video0 -r 1280x720 -f 30
+      devices:
+      #Printer Port
+        - /dev/ender5plus:/dev/ttyACM0
+      #Webcam port
+      #  - /dev/video0:/dev/video0
+
+volumes: 
+  #my_data:
+  gcode_files:
+  moonraker_data:
+
