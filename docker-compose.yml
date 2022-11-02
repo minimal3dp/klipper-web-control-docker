@@ -93,6 +93,25 @@ services:
         - klipper:klipper
         # - klipper_another_printer:klipper_another_printer
 
+    octoprint1:
+      container_name: Octoprint1
+      image: octoprint/octoprint
+      hostname: Octoprint1
+      restart: unless-stopped
+      ports:
+        - 5000:5000
+        - 8080:8080
+      volumes:
+        - /home/dietpi/docker/octoprint1:/octoprint1
+      environment:
+        - ENABLE_MJPG_STREAMER=true
+        - MJPG_STREAMER_INPUT=-n -d /dev/video0:/dev/video0 -r 1280x720 -f 30
+      devices:
+      #Printer Port
+        - /dev/ttyACM0:/dev/ttyACM0
+      #Webcam port
+      #  - /dev/video0:/dev/video0
+
 volumes: 
   #my_data:
   gcode_files:
