@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-    octoprint-ender5plus:
+  octoprint-ender5plus:
     restart: unless-stopped
     image: octoprint/octoprint
     container_name: octoprint-ender5plus
