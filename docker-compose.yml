@@ -6,7 +6,7 @@ services:
     image: octoprint/octoprint
     container_name: octoprint-ender5plus
     ports:
-      - 300@:5000
+      - 5000:5000
     devices:
       - /dev/ender5plus:/dev/ttyACM0
     volumes:
