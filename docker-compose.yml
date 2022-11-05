@@ -29,7 +29,7 @@ services:
       # mount serial device - take care to grant sufficient permissions to the device: <host_dev>:<container_dev>
       # put <container_dev> into your printer.cfg
       devices:
-        - /dev/ender5plus:/dev/ttyACM0
+        - /dev/ttyACM0:/dev/ttyACM0
 
   ##################################################################
   # Example config for a second printer on a different serial port
@@ -108,7 +108,7 @@ services:
         - MJPG_STREAMER_INPUT=-n -d /dev/video0:/dev/video0 -r 1280x720 -f 30
       devices:
       #Printer Port
-        - /dev/ender5plus:/dev/ttyACM0
+        - /dev/ttyACM0:/dev/ttyACM0
       #Webcam port
       #  - /dev/video0:/dev/video0
 
